@@ -100,7 +100,12 @@ Example line:
 parseHistogramLine = (xs) ->
   xs = xs.trim().split(':')
   return null if xs.length != 2
-  [+xs[0], xs[1].split('(')[1].split(')')[0].split(',').map((x) -> +x.trim())]
+  parsedHistogramLine = null
+  try
+    parsedHistogramLine = [+xs[0], xs[1].split('(')[1].split(')')[0].split(',').map((x) -> +x.trim())]
+  catch e
+    console.error(e, xs);
+  return parsedHistogramLine
 
 # Magic
 reduceSimilar = (xs, r) ->
